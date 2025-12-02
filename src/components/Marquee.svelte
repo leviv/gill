@@ -2,43 +2,50 @@
 	import { onMount } from 'svelte';
 	import headlines from '$lib/dcenquirer_headlines.json';
 
-	// Number of headlines to show at once (balance between variety and performance)
-	const HEADLINES_TO_SHOW = 50;
-
-	// Shuffle array using Fisher-Yates algorithm
-	function shuffleArray<T>(array: T[]): T[] {
-		const shuffled = [...array];
-		for (let i = shuffled.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-		}
-		return shuffled;
+	interface Props {
+		money: number;
 	}
 
-	// Get a random subset of headlines
-	function getRandomHeadlines(count: number): string[] {
-		const shuffled = shuffleArray(headlines);
-		return shuffled.slice(0, count);
+	let { money }: Props = $props();
+
+	const HEADLINES_COUNT = 10;
+
+	let displayedHeadlines = $state<string[]>([]);
+	let headlineIndex = $state(0);
+
+	// Calculate animation duration based on money
+	// Start at 20s, decrease as money increases, min 2s
+	const animationDuration = $derived(Math.max(2, 20 - money / 1000));
+
+	function getNextHeadline(): string {
+		const headline = headlines[headlineIndex % headlines.length];
+		headlineIndex++;
+		return headline;
 	}
-
-	let displayedHeadlines = getRandomHeadlines(HEADLINES_TO_SHOW);
-
-	// Duplicate headlines for seamless loop
-	$: headlinesToRender = [...displayedHeadlines, ...displayedHeadlines];
 
 	onMount(() => {
-		// Optionally rotate to new headlines periodically (every 2 minutes)
-		const interval = setInterval(() => {
-			displayedHeadlines = getRandomHeadlines(HEADLINES_TO_SHOW);
-		}, 120000);
-
-		return () => clearInterval(interval);
+		// Initialize with 10 headlines
+		for (let i = 0; i < HEADLINES_COUNT; i++) {
+			displayedHeadlines.push(getNextHeadline());
+		}
+		displayedHeadlines = [...displayedHeadlines];
 	});
+
+	function handleAnimationIteration() {
+		// Remove the first headline and add a new one at the end
+		displayedHeadlines.shift();
+		displayedHeadlines.push(getNextHeadline());
+		displayedHeadlines = [...displayedHeadlines];
+	}
 </script>
 
 <div class="marquee-container">
-	<div class="marquee-content">
-		{#each headlinesToRender as headline}
+	<div
+		class="marquee-content"
+		onanimationiteration={handleAnimationIteration}
+		style="animation-duration: {animationDuration}s;"
+	>
+		{#each displayedHeadlines as headline, i (i + headlineIndex)}
 			<span class="headline">{headline}</span>
 		{/each}
 	</div>
@@ -56,9 +63,9 @@
 
 	.marquee-content {
 		display: flex;
-		gap: 3rem;
+		gap: 10px;
 		white-space: nowrap;
-		animation: scroll 10s linear infinite;
+		animation: scroll linear infinite;
 	}
 
 	.headline {
@@ -69,8 +76,8 @@
 	}
 
 	.headline::after {
-		content: '•';
-		margin-left: 3rem;
+		content: '🚨';
+		margin-left: 10px;
 		color: #ff0000;
 	}
 
