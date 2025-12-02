@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Marquee from '../components/Marquee.svelte';
+
 	let money = 0;
 	let currentMultiplier = 1;
 
@@ -11,6 +13,8 @@
 	}
 </script>
 
+<Marquee />
+
 <div class="container">
 	<p>Money: {money}</p>
 
@@ -22,6 +26,10 @@
 </div>
 
 <style>
+	:global(body) {
+		margin: 0;
+	}
+
 	.container {
 		display: flex;
 		flex-direction: column;
