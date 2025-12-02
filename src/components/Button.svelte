@@ -84,7 +84,7 @@
 		const startTime = Date.now();
 		const startX = 20; // Start immediately to the right
 		const endX = window.innerWidth; // Drift off to the right edge of screen
-		const startYOffset = -50 + (Math.random() - 0.5) * 50; // Start 50px higher with ±25px random variation
+		const startYOffset = -50 + (Math.random() - 0.5) * 100; // Start 50px higher with ±25px random variation
 
 		// Random bobbing parameters
 		const bobAmplitude = 15 + Math.random() * 20;
@@ -168,6 +168,7 @@
 		flex-direction: column;
 		width: 300px;
 		position: relative;
+		filter: drop-shadow(5px 5px 10px #000000);
 	}
 
 	.button-container img {
@@ -208,10 +209,18 @@
 		font-family: 'Bangers', cursive;
 		font-size: 42px;
 		font-weight: 400;
-		color: #333;
+		color: transparent;
 		white-space: nowrap;
-		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+		-webkit-text-stroke: 3px;
+		-webkit-text-stroke-image: linear-gradient(to bottom, #b22234, #ffffff, #3c3b6e);
+		text-stroke: 3px;
+		text-stroke-image: linear-gradient(to bottom, #b22234, #ffffff, #3c3b6e);
 		animation: shake 0.1s infinite;
+		/* Fallback for browsers that don't support text-stroke-image */
+		-webkit-text-stroke-color: #b22234;
+		background: linear-gradient(to bottom, #b22234, #ffffff, #3c3b6e);
+		-webkit-background-clip: text;
+		background-clip: text;
 	}
 
 	@keyframes shake {
