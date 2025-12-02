@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Marquee from '../components/Marquee.svelte';
+	import Button from '../components/Button.svelte';
 
 	let money = 0;
 	let currentMultiplier = 1;
@@ -18,7 +19,7 @@
 <div class="container">
 	<p>Money: {money}</p>
 
-	<button on:click={handleClick}> Click me! </button>
+	<Button onclick={handleClick} />
 
 	<button on:click={increaseMultiplier}>
 		Increase Multiplier (Current: {currentMultiplier})
@@ -28,6 +29,7 @@
 <style>
 	:global(body) {
 		margin: 0;
+		overflow: hidden;
 	}
 
 	.container {
