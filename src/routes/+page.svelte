@@ -4,7 +4,7 @@
 	import Resources from '../components/Resources.svelte';
 	import { onMount } from 'svelte';
 
-	let money = $state(0);
+	let money = $state(100000);
 	let currentMultiplier = $state(1);
 	let eagleSound: HTMLAudioElement;
 	let autoClickers = $state(0); // Interns
