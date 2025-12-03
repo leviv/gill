@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Marquee from '../components/Marquee.svelte';
 	import Button from '../components/Button.svelte';
-	import Resource from '../components/Resource.svelte';
+	import Resources from '../components/Resources.svelte';
 	import { onMount } from 'svelte';
 
-	let money = $state(10000);
+	let money = $state(0);
 	let currentMultiplier = $state(1);
 	let eagleSound: HTMLAudioElement;
 	let autoClickers = $state(0); // Interns
@@ -89,20 +89,16 @@
 		// Auto increment from interns (1 per second)
 		const internInterval = setInterval(() => {
 			if (autoClickers > 0) {
-				for (let i = 0; i < autoClickers; i++) {
-					incrementMoney(1);
-				}
+				incrementMoney(autoClickers);
 			}
 		}, 1000);
 
-		// Auto increment from lobbyists (10 per second)
+		// Auto increment from lobbyists (10 times per second, 1 each time)
 		const lobbyistInterval = setInterval(() => {
 			if (lobbyists > 0) {
-				for (let i = 0; i < lobbyists * 10; i++) {
-					incrementMoney(1);
-				}
+				incrementMoney(lobbyists);
 			}
-		}, 1000);
+		}, 100);
 
 		return () => {
 			clearInterval(internInterval);
@@ -118,21 +114,25 @@
 		incrementMoney(currentMultiplier);
 	}
 
-	function buyFacebookAd() {
-		money -= 100;
-		currentMultiplier += 1;
+	function handleMoneyChange(amount: number) {
+		money += amount;
 	}
 
-	function buyIntern() {
-		money -= 1000;
-		autoClickers += 1;
-		addBackgroundEmoji(internEmojis);
+	function handleMultiplierChange(amount: number) {
+		currentMultiplier += amount;
 	}
 
-	function buyLobbyist() {
-		money -= 10000;
-		lobbyists += 1;
-		addBackgroundEmoji(lobbyistEmojis);
+	function handleAutoClickersChange(amount: number) {
+		autoClickers += amount;
+	}
+
+	function handleLobbyistsChange(amount: number) {
+		lobbyists += amount;
+	}
+
+	function handleAddEmoji(type: 'intern' | 'lobbyist') {
+		const emojiList = type === 'intern' ? internEmojis : lobbyistEmojis;
+		addBackgroundEmoji(emojiList);
 	}
 </script>
 
@@ -153,21 +153,17 @@
 
 	<Button onclick={handleClick} />
 
-	<div class="resources">
-		<Resource title="Buy Facebook ad" cost={100} currentMoney={money} onPurchase={buyFacebookAd} />
-
-		<Resource title="Buy intern" cost={1000} currentMoney={money} onPurchase={buyIntern} />
-
-		<Resource title="Court lobbyist" cost={10000} currentMoney={money} onPurchase={buyLobbyist} />
-	</div>
-
-	{#if autoClickers > 0}
-		<p>Interns: {autoClickers}</p>
-	{/if}
-
-	{#if lobbyists > 0}
-		<p>Lobbyists: {lobbyists}</p>
-	{/if}
+	<Resources
+		{money}
+		{currentMultiplier}
+		{autoClickers}
+		{lobbyists}
+		onMoneyChange={handleMoneyChange}
+		onMultiplierChange={handleMultiplierChange}
+		onAutoClickersChange={handleAutoClickersChange}
+		onLobbyistsChange={handleLobbyistsChange}
+		onAddEmoji={handleAddEmoji}
+	/>
 </div>
 
 <style>
@@ -184,13 +180,6 @@
 		margin-top: 20px;
 		position: relative;
 		z-index: 10;
-	}
-
-	.resources {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		margin-top: 20px;
 	}
 
 	.background-emojis {

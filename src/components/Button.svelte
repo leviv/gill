@@ -9,6 +9,9 @@
 
 	let { onclick }: Props = $props();
 
+	// Random hover rotation
+	let hoverRotation = $state((Math.random() - 0.5) * 8); // Random between -4 and +4
+
 	// Spring animations for natural, bouncy motion
 	const topRotation = spring(0, { stiffness: 0.3, damping: 0.4 });
 	const topY = spring(0, { stiffness: 0.3, damping: 0.4 });
@@ -33,6 +36,9 @@
 		// Random rotation between -8 and 8 degrees
 		const randomRotation = (Math.random() - 0.5) * 16;
 		const randomBottomRotation = (Math.random() - 0.5) * 4; // Small rotation for bottom
+
+		// Generate new random hover rotation for next hover
+		hoverRotation = (Math.random() - 0.5) * 8;
 
 		// Lift top up, rotate, and scale up
 		topRotation.set(randomRotation);
@@ -123,7 +129,7 @@
 	}
 </script>
 
-<button onclick={handleClick}>
+<button onclick={handleClick} style="--hover-rotation: {hoverRotation}deg;">
 	<div class="button-container">
 		<img
 			src="headshot_top.png"
@@ -155,12 +161,17 @@
 
 <style>
 	button {
-		background-color: white;
+		background-color: transparent;
 		border: none;
 		cursor: pointer;
 		padding: 0;
 		position: relative;
 		overflow: visible;
+		transition: transform 0.1s ease;
+	}
+
+	button:hover {
+		transform: scale(1.1) rotate(var(--hover-rotation));
 	}
 
 	.button-container {
@@ -176,6 +187,8 @@
 		object-fit: cover;
 		display: block;
 		user-select: none;
+		-webkit-user-drag: none;
+		pointer-events: none;
 	}
 
 	.top {
