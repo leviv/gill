@@ -20,7 +20,7 @@
 <style>
 	.money-popup {
 		position: absolute;
-		font-family: 'Arial', sans-serif;
+		font-family: Poppins, Arial, Helvetica, sans-serif;
 		font-size: 24px;
 		font-weight: bold;
 		color: #2ecc40;

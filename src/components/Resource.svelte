@@ -1,4 +1,6 @@
 <script lang="ts">
+	import ActionButton from './ActionButton.svelte';
+
 	interface Props {
 		title: string;
 		baseCost: number;
@@ -23,9 +25,9 @@
 </script>
 
 <div class="resource-container">
-	<button onclick={handleClick} disabled={!canAfford} class:affordable={canAfford}>
+	<ActionButton onclick={handleClick} disabled={!canAfford}>
 		{title} (Cost: {cost.toLocaleString()})
-	</button>
+	</ActionButton>
 	{#if tooltip}
 		<div class="tooltip">{tooltip}</div>
 	{/if}
@@ -36,45 +38,7 @@
 		position: relative;
 		display: inline-block;
 		width: 100%;
-	}
-
-	button {
-		padding: 10px 20px;
-		font-size: 16px;
-		cursor: pointer;
-		background-color: #4caf50;
-		color: white;
-		border: 2px solid #45a049;
-		border-radius: 5px;
-		transition: all 0.3s ease;
-		width: 100%;
-	}
-
-	button:hover:not(:disabled) {
-		background-color: #45a049;
-		transform: scale(1.05);
-	}
-
-	button:disabled {
-		background-color: #cccccc;
-		color: #666666;
-		border-color: #999999;
-		cursor: not-allowed;
-		opacity: 0.6;
-	}
-
-	button.affordable {
-		animation: pulse 2s infinite;
-	}
-
-	@keyframes pulse {
-		0%,
-		100% {
-			box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
-		}
-		50% {
-			box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
-		}
+		pointer-events: auto;
 	}
 
 	.tooltip {

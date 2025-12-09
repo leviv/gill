@@ -54,15 +54,15 @@ export function getResourceEmojis(
 	const emojis: string[] = [];
 
 	for (let i = 0; i < internCount; i++) {
-		emojis.push(studentEmojis[i % studentEmojis.length]);
+		emojis.push(studentEmojis[Math.floor(Math.random() * studentEmojis.length)]);
 	}
 
 	for (let i = 0; i < campaignManagerCount; i++) {
-		emojis.push(managerEmojis[i % managerEmojis.length]);
+		emojis.push(managerEmojis[Math.floor(Math.random() * managerEmojis.length)]);
 	}
 
 	for (let i = 0; i < corporateFundraiserCount; i++) {
-		emojis.push(fundraiserEmojis[i % fundraiserEmojis.length]);
+		emojis.push(fundraiserEmojis[Math.floor(Math.random() * fundraiserEmojis.length)]);
 	}
 
 	return emojis;

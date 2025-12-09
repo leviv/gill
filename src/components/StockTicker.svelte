@@ -46,7 +46,7 @@
 		border: 3px solid #4caf50;
 		border-radius: 8px;
 		padding: 15px 20px;
-		font-family: 'Courier New', monospace;
+		font-family: Poppins, Arial, Helvetica, sans-serif;
 		color: #4caf50;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 		transition: opacity 0.5s;

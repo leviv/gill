@@ -303,6 +303,8 @@
 {/if}
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
 	:global(body) {
 		margin: 0;
 		overflow: hidden;
@@ -319,6 +321,9 @@
 			20px 20px,
 			40px 40px;
 		background-color: #ffe4e4;
+		font-family: Calibri, sans-serif;
+		font-weight: 400;
+		font-size: 16px;
 	}
 
 	.container {
@@ -329,6 +334,7 @@
 		margin-top: 20px;
 		position: relative;
 		z-index: 10;
+		pointer-events: none;
 	}
 
 	.news-logo {

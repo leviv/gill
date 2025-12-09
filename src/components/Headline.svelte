@@ -49,7 +49,7 @@
 		padding: 12px;
 		width: 250px;
 		box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
-		font-family: 'Georgia', serif;
+		font-family: Calibri, sans-serif;
 	}
 
 	.masthead {
@@ -60,6 +60,7 @@
 		padding-bottom: 4px;
 		margin-bottom: 8px;
 		letter-spacing: 2px;
+		font-family: Poppins, Arial, Helvetica, sans-serif;
 	}
 
 	.headline-text {

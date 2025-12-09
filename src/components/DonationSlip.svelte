@@ -82,7 +82,7 @@
 		padding: 12px 16px;
 		width: 220px;
 		box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-		font-family: 'Courier New', monospace;
+		font-family: Calibri, sans-serif;
 	}
 
 	.clickable .slip-content:hover {
@@ -99,6 +99,7 @@
 		padding-bottom: 4px;
 		margin-bottom: 8px;
 		letter-spacing: 1px;
+		font-family: Poppins, Arial, Helvetica, sans-serif;
 	}
 
 	.donor-name {
@@ -117,6 +118,7 @@
 		font-weight: bold;
 		color: #27ae60;
 		text-align: right;
+		font-family: Poppins, Arial, Helvetica, sans-serif;
 	}
 
 	.fec-link {

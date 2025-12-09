@@ -223,6 +223,7 @@
 		position: relative;
 		overflow: visible;
 		transition: transform 0.1s ease;
+		pointer-events: auto;
 	}
 
 	button:hover {

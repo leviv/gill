@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from './Button.svelte';
+	import ActionButton from './ActionButton.svelte';
 
 	interface Props {
 		dialogues: string[];
@@ -76,9 +77,9 @@
 			<p class="dialogue-text">{displayedText}<span class="cursor">|</span></p>
 
 			{#if showContinueButton}
-				<button class="continue-button" onclick={handleContinue}>
+				<ActionButton onclick={handleContinue}>
 					{currentDialogueIndex < dialogues.length - 1 ? 'Continue' : finalButtonText}
-				</button>
+				</ActionButton>
 			{/if}
 		</div>
 
@@ -150,6 +151,7 @@
 		color: #333;
 		margin: 0;
 		text-align: center;
+		font-family: Calibri, sans-serif;
 	}
 
 	.cursor {
@@ -167,28 +169,6 @@
 		100% {
 			opacity: 0;
 		}
-	}
-
-	.continue-button {
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		color: white;
-		border: none;
-		padding: 12px 32px;
-		font-size: 18px;
-		font-weight: bold;
-		border-radius: 25px;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-	}
-
-	.continue-button:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-	}
-
-	.continue-button:active {
-		transform: translateY(0);
 	}
 
 	.progress-indicator {
