@@ -3,15 +3,8 @@
 
 	interface Props {
 		money: number;
-		currentMultiplier: number;
-		autoClickers: number;
-		lobbyists: number;
 		hasStartedNewsCompany: boolean;
 		onMoneyChange: (amount: number) => void;
-		onMultiplierChange: (amount: number) => void;
-		onAutoClickersChange: (amount: number) => void;
-		onLobbyistsChange: (amount: number) => void;
-		onAddEmoji: (type: 'intern' | 'lobbyist') => void;
 		onStartNewsCompany: () => void;
 		onHireIntern: () => void;
 		onHireCampaignManager: () => void;
@@ -20,15 +13,8 @@
 
 	let {
 		money,
-		currentMultiplier,
-		autoClickers,
-		lobbyists,
 		hasStartedNewsCompany,
 		onMoneyChange,
-		onMultiplierChange,
-		onAutoClickersChange,
-		onLobbyistsChange,
-		onAddEmoji,
 		onStartNewsCompany,
 		onHireIntern,
 		onHireCampaignManager,
