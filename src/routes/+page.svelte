@@ -2,9 +2,12 @@
 	import Marquee from '../components/Marquee.svelte';
 	import Button from '../components/Button.svelte';
 	import Resources from '../components/Resources.svelte';
+	import Intro from '../components/Intro.svelte';
+	import Money from '../components/Money.svelte';
 	import { onMount } from 'svelte';
 
-	let money = $state(100000);
+	let showIntro = $state(true);
+	let money = $state(0);
 	let currentMultiplier = $state(1);
 	let eagleSound: HTMLAudioElement;
 	let autoClickers = $state(0); // Interns
@@ -134,37 +137,46 @@
 		const emojiList = type === 'intern' ? internEmojis : lobbyistEmojis;
 		addBackgroundEmoji(emojiList);
 	}
+
+	function handleIntroComplete() {
+		showIntro = false;
+	}
 </script>
 
-<Marquee {money} />
+{#if showIntro}
+	<Intro onComplete={handleIntroComplete} />
+{:else}
+	<Marquee {money} />
 
-<!-- Background emojis -->
-<div class="background-emojis">
-	{#each backgroundEmojis as bgEmoji}
-		<div class="emoji" style="left: {bgEmoji.x}px; top: {bgEmoji.y}px;">
-			{bgEmoji.emoji}
-		</div>
-	{/each}
-</div>
+	<!-- Background emojis -->
+	<div class="background-emojis">
+		{#each backgroundEmojis as bgEmoji}
+			<div class="emoji" style="left: {bgEmoji.x}px; top: {bgEmoji.y}px;">
+				{bgEmoji.emoji}
+			</div>
+		{/each}
+	</div>
 
-<div class="container">
-	<p>Money: {money}</p>
-	<p>Multiplier: {currentMultiplier}</p>
+	<div class="container">
+		<Money {money} />
 
-	<Button onclick={handleClick} />
+		<p>Multiplier: {currentMultiplier}</p>
 
-	<Resources
-		{money}
-		{currentMultiplier}
-		{autoClickers}
-		{lobbyists}
-		onMoneyChange={handleMoneyChange}
-		onMultiplierChange={handleMultiplierChange}
-		onAutoClickersChange={handleAutoClickersChange}
-		onLobbyistsChange={handleLobbyistsChange}
-		onAddEmoji={handleAddEmoji}
-	/>
-</div>
+		<Button onclick={handleClick} />
+
+		<Resources
+			{money}
+			{currentMultiplier}
+			{autoClickers}
+			{lobbyists}
+			onMoneyChange={handleMoneyChange}
+			onMultiplierChange={handleMultiplierChange}
+			onAutoClickersChange={handleAutoClickersChange}
+			onLobbyistsChange={handleLobbyistsChange}
+			onAddEmoji={handleAddEmoji}
+		/>
+	</div>
+{/if}
 
 <style>
 	:global(body) {

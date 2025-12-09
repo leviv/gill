@@ -32,7 +32,8 @@
 	let blahBubbles = $state<BlahBubble[]>([]);
 	let blahIdCounter = 0;
 
-	function handleClick() {
+	// Exposed animation method that can be called externally
+	export function animate(speak: boolean = true) {
 		// Random rotation between -8 and 8 degrees
 		const randomRotation = (Math.random() - 0.5) * 16;
 		const randomBottomRotation = (Math.random() - 0.5) * 4; // Small rotation for bottom
@@ -46,7 +47,9 @@
 		topScale.set(1.1);
 
 		// Create a new "blah" bubble
-		createBlahBubble();
+		if (speak) {
+			createBlahBubble();
+		}
 
 		// Slam down after a short delay
 		setTimeout(() => {
@@ -66,7 +69,10 @@
 				}, 100);
 			}, 100);
 		}, 150);
+	}
 
+	function handleClick() {
+		animate();
 		onclick?.();
 	}
 
