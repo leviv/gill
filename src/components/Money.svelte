@@ -4,7 +4,7 @@
 
 <div class="container">
 	<img src="/dollar.gif" alt="spinning dollar" />
-	<div class="money-amount">{money} Dollars</div>
+	<div class="money-amount">{Math.round(money).toLocaleString('en-US')} Dollars</div>
 	<img src="/dollar.gif" alt="spinning dollar" />
 </div>
 
@@ -21,5 +21,7 @@
 
 	.money-amount {
 		font-size: 24px;
+		background-color: rgb(143, 213, 143);
+		padding: 4px 8px;
 	}
 </style>

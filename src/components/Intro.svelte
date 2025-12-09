@@ -57,7 +57,7 @@
 				isAnimating = false;
 				showContinueButton = true;
 			}
-		}, 30);
+		}, 15);
 	}
 
 	function handleContinue() {
