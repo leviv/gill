@@ -1,13 +1,15 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { spring } from 'svelte/motion';
+	import MoneyPopup from './MoneyPopup.svelte';
 
 	interface Props {
 		onclick?: () => void;
 		children?: Snippet;
+		clickValue?: number;
 	}
 
-	let { onclick }: Props = $props();
+	let { onclick, clickValue = 1 }: Props = $props();
 
 	// Random hover rotation
 	let hoverRotation = $state((Math.random() - 0.5) * 8); // Random between -4 and +4
@@ -32,6 +34,17 @@
 	let blahBubbles = $state<BlahBubble[]>([]);
 	let blahIdCounter = 0;
 
+	// Money popup state
+	interface MoneyPopupData {
+		id: number;
+		x: number;
+		y: number;
+		value: number;
+	}
+
+	let moneyPopups = $state<MoneyPopupData[]>([]);
+	let moneyIdCounter = 0;
+
 	// Exposed animation method that can be called externally
 	export function animate(speak: boolean = true) {
 		// Random rotation between -8 and 8 degrees
@@ -49,6 +62,9 @@
 		// Create a new "blah" bubble
 		if (speak) {
 			createBlahBubble();
+			// Play click sound
+			const audio = new Audio('/click.mp3');
+			audio.play();
 		}
 
 		// Slam down after a short delay
@@ -71,8 +87,17 @@
 		}, 150);
 	}
 
-	function handleClick() {
+	function handleClick(event: MouseEvent) {
 		animate();
+
+		// Create money popup at click location
+		const button = event.currentTarget as HTMLElement;
+		const rect = button.getBoundingClientRect();
+		const x = event.clientX - rect.left;
+		const y = event.clientY - rect.top;
+
+		createMoneyPopup(x, y);
+
 		onclick?.();
 	}
 
@@ -133,6 +158,23 @@
 
 		requestAnimationFrame(animate);
 	}
+
+	function createMoneyPopup(x: number, y: number) {
+		const id = moneyIdCounter++;
+		const popup: MoneyPopup = {
+			id,
+			x,
+			y,
+			value: clickValue
+		};
+
+		moneyPopups = [...moneyPopups, popup];
+
+		// Remove after animation completes
+		setTimeout(() => {
+			moneyPopups = moneyPopups.filter((p) => p.id !== id);
+		}, 800);
+	}
 </script>
 
 <button onclick={handleClick} style="--hover-rotation: {hoverRotation}deg;">
@@ -153,6 +195,13 @@
 				>
 					<div class="blah">blah</div>
 				</div>
+			{/each}
+		</div>
+
+		<!-- Money popups -->
+		<div class="money-popup-container">
+			{#each moneyPopups as popup (popup.id)}
+				<MoneyPopup amount={popup.value} x={popup.x} y={popup.y} />
 			{/each}
 		</div>
 
@@ -257,5 +306,15 @@
 		75% {
 			transform: translate(0px, -1px);
 		}
+	}
+
+	.money-popup-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: 10;
 	}
 </style>

@@ -1,18 +1,27 @@
 <script lang="ts">
+	import MoneyPopup from './MoneyPopup.svelte';
+
 	interface Props {
 		text: string;
 		x: number;
 		y: number;
+		amount?: number;
 	}
 
-	let { text, x, y }: Props = $props();
+	let { text, x, y, amount = 10 }: Props = $props();
 
 	let opacity = $state(1);
+	let showMoneyPopup = $state(true);
 
 	// Start fading after 5 seconds
 	setTimeout(() => {
 		opacity = 0.5;
 	}, 5000);
+
+	// Remove money popup after animation
+	setTimeout(() => {
+		showMoneyPopup = false;
+	}, 800);
 </script>
 
 <div class="headline" style="left: {x}px; top: {y}px; opacity: {opacity}">
@@ -20,6 +29,9 @@
 		<div class="masthead">DC ENQUIRER</div>
 		<div class="headline-text">{text}</div>
 	</div>
+	{#if showMoneyPopup}
+		<MoneyPopup {amount} x={135} y={75} duration={800} distance={50} />
+	{/if}
 </div>
 
 <style>

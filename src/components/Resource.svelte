@@ -24,7 +24,7 @@
 
 <div class="resource-container">
 	<button onclick={handleClick} disabled={!canAfford} class:affordable={canAfford}>
-		{title} (Cost: {cost})
+		{title} (Cost: {cost.toLocaleString()})
 	</button>
 	{#if tooltip}
 		<div class="tooltip">{tooltip}</div>

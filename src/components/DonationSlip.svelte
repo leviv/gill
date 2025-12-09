@@ -1,4 +1,6 @@
 <script lang="ts">
+	import MoneyPopup from './MoneyPopup.svelte';
+
 	interface Props {
 		contributorName: string;
 		amount: number;
@@ -11,11 +13,17 @@
 	let { contributorName, amount, isCorporate, fecUrl, x, y }: Props = $props();
 
 	let opacity = $state(1);
+	let showMoneyPopup = $state(true);
 
 	// Start fading after 5 seconds
 	setTimeout(() => {
 		opacity = 0.5;
 	}, 5000);
+
+	// Remove money popup after animation
+	setTimeout(() => {
+		showMoneyPopup = false;
+	}, 800);
 </script>
 
 {#if fecUrl}
@@ -32,6 +40,9 @@
 			<div class="amount">${Math.abs(amount).toFixed(2)}</div>
 			<div class="fec-link">View on FEC →</div>
 		</div>
+		{#if showMoneyPopup}
+			<MoneyPopup amount={Math.abs(amount)} x={120} y={75} duration={800} distance={50} />
+		{/if}
 	</a>
 {:else}
 	<div class="donation-slip" style="left: {x}px; top: {y}px; opacity: {opacity}">
@@ -40,13 +51,16 @@
 			<div class="donor-name">{contributorName}</div>
 			<div class="amount">${Math.abs(amount).toFixed(2)}</div>
 		</div>
+		{#if showMoneyPopup}
+			<MoneyPopup amount={Math.abs(amount)} x={120} y={75} duration={800} distance={50} />
+		{/if}
 	</div>
 {/if}
 
 <style>
 	.donation-slip {
 		position: fixed;
-		z-index: 20;
+		z-index: 10;
 		transition: opacity 1s ease-out;
 		text-decoration: none;
 		display: block;
