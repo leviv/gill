@@ -63,7 +63,7 @@
 		if (speak) {
 			createBlahBubble();
 			// Play click sound
-			const audio = new Audio('/click.mp3');
+			const audio = new Audio('click.mp3');
 			audio.play();
 		}
 

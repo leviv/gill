@@ -62,7 +62,7 @@
 	});
 
 	onMount(() => {
-		eagleSound = new Audio('/eagle.mp3');
+		eagleSound = new Audio('eagle.mp3');
 
 		// Parse donations CSV
 		const { individualDonations, corporateDonations } = parseDonationsCSV(donationsData);
@@ -238,7 +238,7 @@
 
 	<div class="container">
 		{#if hasStartedNewsCompany}
-			<img src="/dc-enquirer.jpeg" alt="DC Enquirer" class="news-logo" />
+			<img src="dc-enquirer.jpeg" alt="DC Enquirer" class="news-logo" />
 		{/if}
 
 		<Money {money} />
