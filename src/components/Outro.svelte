@@ -8,9 +8,9 @@
 	let { onComplete }: Props = $props();
 
 	const dialogues = [
-		"Congratulations! You've amassed an impressive fortune of $1 billion through a combination of questionable journalism, endless fundraising, and corporate donations.",
-		"You've mastered the art of modern politics: sensational headlines, Facebook ads, and leveraging your state representative position for maximum financial gain.",
-		"Now it's time to retire to a beach somewhere, leaving behind a legacy of... well, let's call it 'creative fundraising.' Thanks for playing!"
+		'Even though I have riches and power beyond what most people could imagine, as well as a lovely wife and kids, something within me still feels hollow...',
+		"Retirement just doesn't seem as fun as scapegoating minorities and doing anything for a crumb of attention or another zero on my bank account.",
+		"I think I'll continue exactly what I've been doing - maybe I'll run for president next! Thanks for playing."
 	];
 </script>
 

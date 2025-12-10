@@ -134,10 +134,10 @@
 	.dialogue-box {
 		background: rgba(255, 255, 255, 0.95);
 		border-radius: 12px;
-		padding: 30px;
+		padding: 15px;
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 		min-height: 150px;
-		width: 100%;
+		width: 800px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

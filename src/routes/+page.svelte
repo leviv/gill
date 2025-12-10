@@ -155,6 +155,9 @@
 
 	function handleIntroComplete() {
 		showIntro = false;
+		// Play eagle sound on intro complete
+		eagleSound.currentTime = 0;
+		eagleSound.play().catch((err) => console.log('Audio play failed:', err));
 	}
 
 	function handleOutroComplete() {

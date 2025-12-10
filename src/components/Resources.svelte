@@ -111,7 +111,7 @@
 			purchaseCount={internCount}
 			currentMoney={money}
 			onPurchase={buyIntern}
-			tooltip="Generates $10/sec and writes headlines"
+			tooltip="Hire a UT Austin C -tudent to write a clickbait article every 10 seconds. Each article generates $10."
 		/>
 
 		<Resource
@@ -120,7 +120,7 @@
 			purchaseCount={campaignManagerCount}
 			currentMoney={money}
 			onPurchase={buyCampaignManager}
-			tooltip="Generates individual donations each second"
+			tooltip="Hire someone to solicit money from friends, families and bigots every 10 seconds. Each donation a real-life campaign contribution."
 		/>
 
 		<Resource
@@ -129,7 +129,7 @@
 			purchaseCount={corporateFundraiserCount}
 			currentMoney={money}
 			onPurchase={buyCorporateFundraiser}
-			tooltip="Generates corporate donations each second"
+			tooltip="Hire someone to solicit corporate and PAC donations every 10 seconds. Each donation is a real life campaign contribution."
 		/>
 
 		<Resource
@@ -138,7 +138,7 @@
 			purchaseCount={facebookAdsCount}
 			currentMoney={money}
 			onPurchase={buyFacebookAds}
-			tooltip="Increases money per click by $1"
+			tooltip="Boost the reach of your 'news' articles to get more eyeballs and clicks."
 		/>
 
 		{#if !hasStateRep}
@@ -148,7 +148,7 @@
 				purchaseCount={0}
 				currentMoney={money}
 				onPurchase={becomeStateRep}
-				tooltip="One-time purchase: Increases money per click by $1000"
+				tooltip="One-time purchase: Increases all actions by 100x"
 			/>
 		{/if}
 
@@ -159,7 +159,7 @@
 				purchaseCount={insiderTradeCount}
 				currentMoney={money}
 				onPurchase={buyInsiderTrade}
-				tooltip="Generates $10,000 every 10 seconds"
+				tooltip="Illegally use your insider knowledge to trade stocks and crypto every 10 seconds. Each trade generates $1,000,000"
 			/>
 		{/if}
 
@@ -170,7 +170,7 @@
 				purchaseCount={0}
 				currentMoney={money}
 				onPurchase={retire}
-				tooltip="You've won! Time to retire and enjoy the ending."
+				tooltip="You've won! Time to retire and your wealth, wife and two kids."
 			/>
 		{/if}
 	{/if}
