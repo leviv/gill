@@ -111,7 +111,7 @@
 			purchaseCount={internCount}
 			currentMoney={money}
 			onPurchase={buyIntern}
-			tooltip="Hire a UT Austin C -tudent to write a clickbait article every 10 seconds. Each article generates $10."
+			tooltip="Hire a UT Austin C-student to write a clickbait article every 10 seconds. Each article generates $10 and was a real headline published by the DC Enquirer."
 		/>
 
 		<Resource
@@ -148,7 +148,7 @@
 				purchaseCount={0}
 				currentMoney={money}
 				onPurchase={becomeStateRep}
-				tooltip="One-time purchase: Increases all actions by 100x"
+				tooltip="One-time purchase: Increases all actions effectiveness by 500x"
 			/>
 		{/if}
 

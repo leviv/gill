@@ -53,11 +53,13 @@
 		color: white;
 		font-size: 14px;
 		border-radius: 6px;
-		white-space: nowrap;
+		white-space: normal;
 		z-index: 1000;
 		pointer-events: none;
 		opacity: 0;
 		transition: opacity 0.3s ease;
+		max-width: 250px;
+		text-align: center;
 	}
 
 	.tooltip::after {

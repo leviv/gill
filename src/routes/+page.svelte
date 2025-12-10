@@ -179,7 +179,7 @@
 
 	function handleBecomeStateRep() {
 		hasStateRep = true;
-		currentMultiplier *= 100;
+		currentMultiplier *= 500;
 	}
 
 	function handleBuyInsiderTrade() {
