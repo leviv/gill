@@ -224,6 +224,7 @@
 		overflow: visible;
 		transition: transform 0.1s ease;
 		pointer-events: auto;
+		-webkit-tap-highlight-color: transparent;
 	}
 
 	button:hover {
