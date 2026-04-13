@@ -117,14 +117,15 @@
 	}
 
 	function animateBlahBubble(id: number) {
-		const duration = 6000; // 6 seconds to drift off screen (3x slower)
+		const isMobile = window.innerWidth <= 768;
+		const duration = isMobile ? 10000 : 6000;
 		const startTime = Date.now();
-		const startX = 20; // Start immediately to the right
-		const endX = window.innerWidth; // Drift off to the right edge of screen
-		const startYOffset = -50 + (Math.random() - 0.5) * 100; // Start 50px higher with ±25px random variation
+		const startX = isMobile ? 0 : 20;
+		const endX = isMobile ? window.innerWidth * 0.6 : window.innerWidth;
+		const startYOffset = (isMobile ? -30 : -50) + (Math.random() - 0.5) * (isMobile ? 60 : 100);
 
 		// Random bobbing parameters
-		const bobAmplitude = 15 + Math.random() * 20;
+		const bobAmplitude = isMobile ? 10 + Math.random() * 10 : 15 + Math.random() * 20;
 		const bobFrequency = 2 + Math.random() * 3;
 
 		function animate() {
@@ -270,6 +271,14 @@
 		height: 0;
 	}
 
+	@media (max-width: 768px) {
+		.blah-container {
+			left: 50%;
+			top: 20%;
+			transform: translate(-50%, -50%);
+		}
+	}
+
 	.blah-wrapper {
 		position: absolute;
 		left: 0;
@@ -278,7 +287,7 @@
 
 	.blah {
 		font-family: 'Bangers', cursive;
-		font-size: 42px;
+		font-size: clamp(24px, 6vw, 42px);
 		font-weight: 400;
 		color: transparent;
 		white-space: nowrap;
