@@ -118,7 +118,7 @@
 
 	function animateBlahBubble(id: number) {
 		const isMobile = window.innerWidth <= 768;
-		const duration = isMobile ? 3000 : 2000;
+		const duration = isMobile ? 1500 : 6000;
 		const startTime = Date.now();
 		const startX = isMobile ? 0 : 20;
 		const endX = isMobile ? window.innerWidth * 0.6 : window.innerWidth;
@@ -276,6 +276,11 @@
 			left: 50%;
 			top: 20%;
 			transform: translate(-50%, -50%);
+		}
+
+		.blah {
+			-webkit-text-stroke: 1.5px;
+			text-stroke: 1.5px;
 		}
 	}
 

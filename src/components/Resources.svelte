@@ -186,10 +186,10 @@
 
 	@media (max-width: 768px) {
 		.resources {
-			max-height: 40vh;
+			max-height: 60vh;
 			overflow-y: auto;
 			-webkit-overflow-scrolling: touch;
-			padding: 0 16px;
+			padding: 0 16px 16px;
 		}
 	}
 </style>
