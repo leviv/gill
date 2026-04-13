@@ -123,7 +123,9 @@
 		align-items: center;
 		gap: 40px;
 		max-width: 800px;
-		padding: 40px;
+		width: 100%;
+		padding: 20px;
+		box-sizing: border-box;
 	}
 
 	.button-display {
@@ -137,7 +139,9 @@
 		padding: 15px;
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 		min-height: 150px;
-		width: 800px;
+		width: 100%;
+		max-width: 800px;
+		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -146,7 +150,7 @@
 	}
 
 	.dialogue-text {
-		font-size: 20px;
+		font-size: clamp(14px, 4vw, 20px);
 		line-height: 1.6;
 		color: #333;
 		margin: 0;

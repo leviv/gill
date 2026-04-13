@@ -183,4 +183,13 @@
 		gap: 10px;
 		margin-top: 20px;
 	}
+
+	@media (max-width: 768px) {
+		.resources {
+			max-height: 40vh;
+			overflow-y: auto;
+			-webkit-overflow-scrolling: touch;
+			padding: 0 16px;
+		}
+	}
 </style>
