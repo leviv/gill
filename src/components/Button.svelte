@@ -29,6 +29,8 @@
 		x: number;
 		y: number;
 		rotation: number;
+		endX: number;
+		duration: number;
 	}
 
 	let blahBubbles = $state<BlahBubble[]>([]);
@@ -107,7 +109,9 @@
 			id,
 			x: 0,
 			y: 0,
-			rotation: 0
+			rotation: 0,
+			endX: 0,
+			duration: 0
 		};
 
 		blahBubbles = [...blahBubbles, bubble];
@@ -119,45 +123,27 @@
 	function animateBlahBubble(id: number) {
 		const isMobile = window.innerWidth <= 768;
 		const duration = isMobile ? 1500 : 6000;
-		const startTime = Date.now();
 		const startX = isMobile ? 0 : 20;
 		const endX = isMobile ? window.innerWidth * 0.6 : window.innerWidth;
 		const startYOffset = (isMobile ? -30 : -50) + (Math.random() - 0.5) * (isMobile ? 60 : 100);
 
-		// Random bobbing parameters
-		const bobAmplitude = isMobile ? 10 + Math.random() * 10 : 15 + Math.random() * 20;
-		const bobFrequency = 2 + Math.random() * 3;
+		// Set CSS custom properties for the animation
+		const bubbleIndex = blahBubbles.findIndex((b) => b.id === id);
+		if (bubbleIndex === -1) return;
 
-		function animate() {
-			const elapsed = Date.now() - startTime;
-			const progress = Math.min(elapsed / duration, 1);
+		blahBubbles[bubbleIndex] = {
+			...blahBubbles[bubbleIndex],
+			x: startX,
+			y: startYOffset,
+			endX,
+			duration
+		};
+		blahBubbles = [...blahBubbles];
 
-			const bubbleIndex = blahBubbles.findIndex((b) => b.id === id);
-			if (bubbleIndex === -1) return;
-
-			// Linear movement for immediate drift
-			const x = startX + (endX - startX) * progress;
-			const y = startYOffset + Math.sin(progress * Math.PI * bobFrequency) * bobAmplitude;
-			const rotation = Math.sin(progress * Math.PI * bobFrequency * 1.5) * 10;
-
-			// Update bubble
-			blahBubbles[bubbleIndex] = {
-				...blahBubbles[bubbleIndex],
-				x,
-				y,
-				rotation
-			};
-			blahBubbles = [...blahBubbles]; // Trigger reactivity
-
-			if (progress < 1) {
-				requestAnimationFrame(animate);
-			} else {
-				// Remove bubble after animation
-				blahBubbles = blahBubbles.filter((b) => b.id !== id);
-			}
-		}
-
-		requestAnimationFrame(animate);
+		// Remove bubble after animation completes
+		setTimeout(() => {
+			blahBubbles = blahBubbles.filter((b) => b.id !== id);
+		}, duration);
 	}
 
 	function createMoneyPopup(x: number, y: number) {
@@ -192,7 +178,7 @@
 			{#each blahBubbles as bubble (bubble.id)}
 				<div
 					class="blah-wrapper"
-					style="transform: translate({bubble.x}px, {bubble.y}px) rotate({bubble.rotation}deg);"
+					style="--start-x: {bubble.x}px; --start-y: {bubble.y}px; --end-x: {bubble.endX}px; --duration: {bubble.duration}ms;"
 				>
 					<div class="blah">blah</div>
 				</div>
@@ -240,6 +226,12 @@
 		filter: drop-shadow(5px 5px 10px #000000);
 	}
 
+	@media (max-width: 768px) {
+		.button-container {
+			filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.5));
+		}
+	}
+
 	.button-container img {
 		width: 100%;
 		object-fit: cover;
@@ -281,6 +273,7 @@
 		.blah {
 			-webkit-text-stroke: 1.5px;
 			text-stroke: 1.5px;
+			animation: none;
 		}
 	}
 
@@ -288,6 +281,24 @@
 		position: absolute;
 		left: 0;
 		top: 0;
+		will-change: transform;
+		animation: blah-drift var(--duration) linear forwards;
+		transform: translate(var(--start-x), var(--start-y));
+	}
+
+	@keyframes blah-drift {
+		0% {
+			transform: translate(var(--start-x), var(--start-y)) rotate(0deg);
+			opacity: 1;
+		}
+		50% {
+			transform: translate(calc((var(--start-x) + var(--end-x)) / 2), calc(var(--start-y) - 20px)) rotate(5deg);
+			opacity: 1;
+		}
+		100% {
+			transform: translate(var(--end-x), var(--start-y)) rotate(-3deg);
+			opacity: 0;
+		}
 	}
 
 	.blah {
