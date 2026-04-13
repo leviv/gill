@@ -346,6 +346,12 @@
 		pointer-events: none;
 	}
 
+	@media (max-width: 768px) {
+		.container {
+			padding-bottom: 120px;
+		}
+	}
+
 	.news-logo {
 		max-width: 300px;
 		width: 100%;
@@ -366,6 +372,12 @@
 		z-index: 15;
 		max-height: 200px;
 		overflow-y: auto;
+	}
+
+	@media (max-width: 768px) {
+		.resource-emoji-bar {
+			max-height: 100px;
+		}
 	}
 
 	.resource-emoji {
