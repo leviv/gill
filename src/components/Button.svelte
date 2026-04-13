@@ -118,7 +118,7 @@
 
 	function animateBlahBubble(id: number) {
 		const isMobile = window.innerWidth <= 768;
-		const duration = isMobile ? 10000 : 6000;
+		const duration = isMobile ? 3000 : 2000;
 		const startTime = Date.now();
 		const startX = isMobile ? 0 : 20;
 		const endX = isMobile ? window.innerWidth * 0.6 : window.innerWidth;
